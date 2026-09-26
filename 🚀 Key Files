@@ -9,3 +9,57 @@ export default function Home() {
     </div>
   );
 }
+
+export default function ActionBoard({ tasks }) {
+  return (
+    <div className="p-4 bg-white shadow rounded">
+      <h2 className="text-xl font-bold">Today's Priorities</h2>
+      {tasks.map((t, i) => (
+        <div key={i} className="border-b py-2">
+          <span className={`font-semibold ${t.priority === "Critical" ? "text-red-600" : "text-green-600"}`}>
+            {t.priority}
+          </span> — {t.name}
+          <p className="text-sm text-gray-600">{t.reason}</p>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+export function evaluateTask(task, weather) {
+  if (task.type === "fertilize" && weather.rain > 20) {
+    return { priority: "Delay", reason: "Heavy rain will wash fertilizer" };
+  }
+  if (task.type === "harvest" && weather.rain > 10) {
+    return { priority: "Critical", reason: "Crop maturity + rain risk" };
+  }
+  if (task.type === "spray" && weather.wind > 15) {
+    return { priority: "Delay", reason: "High wind → drift risk" };
+  }
+  return { priority: "Safe", reason: "No immediate risk" };
+}
+
+import { evaluateTask } from "../utils/rules";
+
+export default function WhatIf() {
+  const tasks = [
+    { name: "Harvest Tomato", type: "harvest" },
+    { name: "Fertilize Paddy", type: "fertilize" },
+    { name: "Spray Chilli", type: "spray" },
+    { name: "Irrigate Groundnut", type: "irrigate" },
+  ];
+
+  const weather = { rain: 15, wind: 10 };
+
+  const simulate = (delayHours) => {
+    return tasks.map(t => evaluateTask(t, { ...weather, rain: weather.rain + delayHours }));
+  };
+
+  return (
+    <div className="p-6">
+      <h1 className="text-2xl font-bold">What-If Simulator</h1>
+      <button onClick={() => console.log(simulate(12))} className="btn">Wait 12h</button>
+      <button onClick={() => console.log(simulate(24))} className="btn">Wait 24h</button>
+    </div>
+  );
+}
