@@ -1,0 +1,22 @@
+farmrescue/
+ ├─ pages/
+ │   ├─ index.js          # Landing page
+ │   ├─ dashboard.js      # Farm overview + action board
+ │   ├─ weather.js        # 72-hour weather timeline
+ │   ├─ whatif.js         # What-If simulator
+ │
+ ├─ components/
+ │   ├─ MapView.js        # Farm map with fields
+ │   ├─ ActionBoard.js    # Priority list of tasks
+ │   ├─ WeatherTimeline.js# Weather chart
+ │   ├─ ReasoningCard.js  # "Why?" explanations
+ │
+ ├─ utils/
+ │   ├─ rules.js          # Agricultural rules engine
+ │   ├─ scoring.js        # Priority scoring logic
+ │   ├─ weatherAPI.js     # Fetch weather data
+ │
+ ├─ styles/
+ │   └─ globals.css
+ ├─ package.json
+ ├─ README.md
